@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Reference Extractor</title>
+<script>
+function extractReferences(text) {
+    const regex = /r[1-4]-\d+/g;
+    let references = text.match(regex);
+    if (references) {
+        references = references.map(ref => ref.replace('-', '_'));
+    }
+    return references || [];
+}
+
+function handleExtract() {
+    const userInput = document.getElementById('textInput').value;
+    const references = extractReferences(userInput);
+    const formattedOutput = 'Extracted References: ' + references.join(', ') + ' /stdn';
+    document.getElementById('results').textContent = formattedOutput;
+}
+</script>
+</head>
+<body>
+<h1>Reference Extractor</h1>
+<p>Enter text with references in the formats r1-123456, r2-654321, etc.:</p>
+<textarea id="textInput" rows="4" cols="50"></textarea><br>
+<button onclick="handleExtract()">Extract References</button>
+<p id="results"></p>
+</body>
+</html>
